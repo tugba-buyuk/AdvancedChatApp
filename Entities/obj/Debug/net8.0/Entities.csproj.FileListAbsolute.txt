@@ -1,0 +1,12 @@
+C:\AdvancedChatApp\Entities\bin\Debug\net8.0\Entities.deps.json
+C:\AdvancedChatApp\Entities\bin\Debug\net8.0\Entities.dll
+C:\AdvancedChatApp\Entities\bin\Debug\net8.0\Entities.pdb
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.csproj.AssemblyReference.cache
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.AssemblyInfoInputs.cache
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.AssemblyInfo.cs
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.csproj.CoreCompileInputs.cache
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.dll
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\refint\Entities.dll
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\Entities.pdb
+C:\AdvancedChatApp\Entities\obj\Debug\net8.0\ref\Entities.dll

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35201.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApp", "SignalRApp.csproj", "{068A2666-118D-454B-94BA-819BDF8B8AF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "..\Entities\Entities.csproj", "{FD9CED80-F4AB-43C8-8284-E6A6D2A2CA6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "..\Repositories\Repositories.csproj", "{BE3542DC-6AD6-4C65-A7FC-87A6324DF749}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{068A2666-118D-454B-94BA-819BDF8B8AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068A2666-118D-454B-94BA-819BDF8B8AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068A2666-118D-454B-94BA-819BDF8B8AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068A2666-118D-454B-94BA-819BDF8B8AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9CED80-F4AB-43C8-8284-E6A6D2A2CA6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9CED80-F4AB-43C8-8284-E6A6D2A2CA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9CED80-F4AB-43C8-8284-E6A6D2A2CA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9CED80-F4AB-43C8-8284-E6A6D2A2CA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE3542DC-6AD6-4C65-A7FC-87A6324DF749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE3542DC-6AD6-4C65-A7FC-87A6324DF749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE3542DC-6AD6-4C65-A7FC-87A6324DF749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE3542DC-6AD6-4C65-A7FC-87A6324DF749}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AD529DB-A819-4D88-B06A-2606A02D4568}
+	EndGlobalSection
+EndGlobal

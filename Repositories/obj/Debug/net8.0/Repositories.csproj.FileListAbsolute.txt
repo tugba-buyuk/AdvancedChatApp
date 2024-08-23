@@ -1,0 +1,15 @@
+C:\AdvancedChatApp\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\AdvancedChatApp\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\AdvancedChatApp\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\AdvancedChatApp\Repositories\bin\Debug\net8.0\Entities.dll
+C:\AdvancedChatApp\Repositories\bin\Debug\net8.0\Entities.pdb
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Reposito.787EC4B2.Up2Date
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\ref\Repositories.dll
