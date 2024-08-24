@@ -10,6 +10,6 @@ namespace SignalRApp.Extensions
                 services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(
                  configuration.GetConnectionString("sqlConnection"),
-                  b => b.MigrationsAssembly("Repositories")));
+                  b => b.MigrationsAssembly("SignalRApp")));
     }
 }

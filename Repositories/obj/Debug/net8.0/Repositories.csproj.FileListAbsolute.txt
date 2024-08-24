@@ -13,3 +13,4 @@ C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.dll
 C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\refint\Repositories.dll
 C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.pdb
 C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+C:\AdvancedChatApp\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json

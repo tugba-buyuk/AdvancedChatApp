@@ -148,3 +148,4 @@ C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\refint\SignalRApp.dll
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.pdb
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.genruntimeconfig.cache
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\ref\SignalRApp.dll
+C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.sourcelink.json
