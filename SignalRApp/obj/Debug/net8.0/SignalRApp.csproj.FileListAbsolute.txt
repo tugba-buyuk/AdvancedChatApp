@@ -8,11 +8,7 @@ C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\SignalRApp.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\SignalRApp.pdb
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Azure.Core.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Azure.Identity.dll
-C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\EntityFramework.SqlServer.dll
-C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\EntityFramework.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Humanizer.dll
-C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Microsoft.AspNet.Identity.Core.dll
-C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -149,3 +145,6 @@ C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.pdb
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.genruntimeconfig.cache
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\ref\SignalRApp.dll
 C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.sourcelink.json
+C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\AutoMapper.dll
+C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Services.dll
+C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Services.pdb

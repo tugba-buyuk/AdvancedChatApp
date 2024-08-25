@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +90,10 @@ namespace Repositories
                 .WithMany(cr => cr.TypingStatuses)
                 .HasForeignKey(ts => ts.ChatRoomId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.ApplyConfiguration(new IdentityRoleConfig());
         }
+        
     }
 
 

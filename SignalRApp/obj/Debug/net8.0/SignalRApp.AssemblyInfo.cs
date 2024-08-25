@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SignalRApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46d77e3cc26986df91583eefbda3df00c9aafd12")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10ac62051b6c0be72d1ab018e374e206bdd84736")]
 [assembly: System.Reflection.AssemblyProductAttribute("SignalRApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SignalRApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
