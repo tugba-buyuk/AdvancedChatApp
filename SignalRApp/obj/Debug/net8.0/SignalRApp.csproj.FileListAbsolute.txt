@@ -148,3 +148,5 @@ C:\AdvancedChatApp\SignalRApp\obj\Debug\net8.0\SignalRApp.sourcelink.json
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\AutoMapper.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Services.dll
 C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\Services.pdb
+C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\package-lock.json
+C:\AdvancedChatApp\SignalRApp\bin\Debug\net8.0\package.json

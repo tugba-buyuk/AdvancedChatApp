@@ -19,4 +19,76 @@ html {
 
 body {
   margin-bottom: 60px;
+  overflow:hidden;
+}
+
+/* Sohbet mesajlarý penceresini kaydýrýlabilir yap */
+#chat-messages {
+    overflow-y: auto;
+    height: calc(100% - 120px); /* Input alaný ve baþlýk boyutunu hesaba katmak için */
+}
+
+/* Mesaj balonlarý için özel stil */
+.message {
+    max-width: 75%;
+}
+
+.chat-messages .d-flex.justify-content-end .message {
+    background-color: #dcf8c6; /* Gelen mesajlar için WhatsApp tarzý renk */
+}
+
+.chat-messages .d-flex.justify-content-start .message {
+    background-color: #ffffff; /* Gönderilen mesajlar için WhatsApp tarzý renk */
+}
+
+/* Profil resimlerinin yuvarlak olmasý ve boyutlandýrýlmasý */
+.list-group-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+/* Kiþilerin olduðu bölümde kaydýrma çubuðu */
+.chat-list {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Sohbet bölümünde kaydýrma çubuðu */
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.input-group {
+    flex-shrink: 0;
+}
+.search-box {
+    background-color: #f0f2f5;
+    border-radius: 5px;
+    gap: 10px;
+}
+    .search-box button {
+        background: none;
+        border: none;
+    }
+    .search-box input {
+        width: 100%;
+        border: none;
+        background-color: #f0f2f5;
+        border-radius: 5px;
+    }
+.new-group-btn{
+    background:none;
+    border:none;
+}
+.list-group-item.active {
+    border-color: #f0f2f5 !important;
+    background-color: #f0f2f5 !important;
+    color:black !important;
 }
