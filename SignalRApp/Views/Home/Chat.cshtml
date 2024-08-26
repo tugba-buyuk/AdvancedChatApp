@@ -1,4 +1,4 @@
-﻿<div class="container-fluid vh-100" style="padding-bottom:150px;">
+﻿<div class="container-fluid vh-100 chat-container d-none" style="padding-bottom:150px;">
     <div class="row h-100">
         <!-- Sol panel: Sohbet listesi -->
         <div class="col-4 bg-light p-0 border-end chat-list">
@@ -17,26 +17,12 @@
                 </div>
             </div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action active">
-                    <img src="~/media/pp.jpeg" alt="Person 1" class="rounded-circle me-2">
-                    Person 1
+                <a href="#" class="list-group-item list-group-item-action users active">
+@*                     <img src="~/media/pp.jpeg" alt="Person 1" class="rounded-circle me-2">
+ *@                    Person 1
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="~/media/pp.jpeg" alt="Person 2" class="rounded-circle me-2">
-                    Person 2
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="~/media/pp.jpeg" alt="Person 3" class="rounded-circle me-2">
-                    Person 3
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="~/media/pp.jpeg" alt="Person 4" class="rounded-circle me-2">
-                    Person 4
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <img src="~/media/pp.jpeg" alt="Person 5" class="rounded-circle me-2">
-                    Person 5
-                </a>
+
+                <div id="_clients"></div>
             </div>
         </div>
 
@@ -72,5 +58,16 @@
                 <button class="btn btn-success" type="button">Send</button>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="container mt-5" id="register-btn-group">
+    <!-- Kayıt ol butonu -->
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#registerForm">Kayıt ol</button>
+
+    <!-- Form alanı -->
+    <div id="registerForm" class="collapse mt-3">
+        <input type="text" class="form-control mb-2" id="txtNickName" placeholder="Adınızı girin" />
+        <button class="btn btn-success" id="btnLogin">Submit</button>
     </div>
 </div>
