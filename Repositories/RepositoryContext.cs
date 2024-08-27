@@ -24,6 +24,7 @@ namespace Repositories
         public DbSet<PrivateMessage> PrivateMessages { get; set; }
         public DbSet<TypingStatus> TypingStatuses { get; set; }
         public DbSet<UserChatRoom> UserChatRooms { get; set; }
+        public DbSet<PendingMessage> PendingMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -91,9 +92,21 @@ namespace Repositories
                 .HasForeignKey(ts => ts.ChatRoomId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<PendingMessage>()
+               .HasOne(pm => pm.Sender)
+               .WithMany()
+               .HasForeignKey(pm => pm.SenderId)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<PendingMessage>()
+                .HasOne(pm => pm.Receiver)
+                .WithMany()
+                .HasForeignKey(pm => pm.ReceiverId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.ApplyConfiguration(new IdentityRoleConfig());
         }
-        
+
     }
 
 

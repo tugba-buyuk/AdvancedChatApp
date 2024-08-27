@@ -178,6 +178,32 @@ namespace SignalRApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PendingMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SentAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PendingMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PendingMessages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PendingMessages_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PrivateMessages",
                 columns: table => new
                 {
@@ -314,9 +340,9 @@ namespace SignalRApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "84f7dc26-0201-4ee8-b1e1-473e7ecfd54f", null, "Admin", "ADMIN" },
-                    { "d98ce4b5-d159-46e8-9d99-b05635636a2d", null, "User", "USER" },
-                    { "fac433bc-c9a2-4642-98b4-1fa51fcc65aa", null, "Editor", "EDITOR" }
+                    { "3e385409-e0d4-4f6a-bc1e-71f485bfcfbe", null, "Editor", "EDITOR" },
+                    { "9a60dfb2-b371-4ea0-abe3-7a85cb5e64bb", null, "User", "USER" },
+                    { "f40f297e-9af9-4e85-b796-10cd0e9d8c78", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -374,6 +400,16 @@ namespace SignalRApp.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PendingMessages_ReceiverId",
+                table: "PendingMessages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PendingMessages_SenderId",
+                table: "PendingMessages",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PrivateMessages_ReceiverId",
                 table: "PrivateMessages",
                 column: "ReceiverId");
@@ -419,6 +455,9 @@ namespace SignalRApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "FileAttachments");
+
+            migrationBuilder.DropTable(
+                name: "PendingMessages");
 
             migrationBuilder.DropTable(
                 name: "PrivateMessages");

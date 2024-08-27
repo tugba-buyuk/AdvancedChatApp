@@ -105,6 +105,38 @@ namespace SignalRApp.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("Entities.Models.PendingMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("PendingMessages");
+                });
+
             modelBuilder.Entity("Entities.Models.PrivateMessage", b =>
                 {
                     b.Property<int>("Id")
@@ -296,19 +328,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d98ce4b5-d159-46e8-9d99-b05635636a2d",
+                            Id = "9a60dfb2-b371-4ea0-abe3-7a85cb5e64bb",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "84f7dc26-0201-4ee8-b1e1-473e7ecfd54f",
+                            Id = "f40f297e-9af9-4e85-b796-10cd0e9d8c78",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "fac433bc-c9a2-4642-98b4-1fa51fcc65aa",
+                            Id = "3e385409-e0d4-4f6a-bc1e-71f485bfcfbe",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -446,6 +478,25 @@ namespace SignalRApp.Migrations
                         .IsRequired();
 
                     b.Navigation("ChatRoom");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("Entities.Models.PendingMessage", b =>
+                {
+                    b.HasOne("Entities.Models.User", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
 
                     b.Navigation("Sender");
                 });
