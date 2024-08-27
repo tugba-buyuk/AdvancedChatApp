@@ -19,8 +19,8 @@ html {
 
 body {
   margin-bottom: 60px;
-  overflow:hidden;
-}
+/*  overflow:hidden;
+*/}
 
 /* Sohbet mesajlarý penceresini kaydýrýlabilir yap */
 #chat-messages {
@@ -92,3 +92,29 @@ body {
     background-color: #f0f2f5 !important;
     color:black !important;
 }
+
+/* Kullanýcý liste elemanlarýnýn genel stili */
+.list-group-item.users {
+    padding: 10px 15px;
+    border: none;
+}
+
+    /* Resim ve metin hizalamasý */
+    .list-group-item.users img {
+        object-fit: cover;
+    }
+
+    .list-group-item.users .flex-column {
+        margin-left: 10px;
+    }
+
+    /* Son görülme tarihi stili */
+    .list-group-item.users .text-muted {
+        font-size: 0.875rem; /* Küçük ve zarif bir yazý boyutu */
+    }
+
+    /* Aktif kullanýcý arka plan rengi */
+    .list-group-item.users.active {
+        background-color: #e9ecef;
+        border-radius: 8px;
+    }

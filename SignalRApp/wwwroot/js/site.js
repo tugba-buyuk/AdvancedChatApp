@@ -7,20 +7,43 @@
     connection.start();
 
     $("#btnLogin").on("click", () => {
-        const nickName = $("#txtNickName").val();
-        connection.invoke("GetNickName", nickName).catch(err => console.log(`Ocurred a error while sending nickname: ${err}`));
-
-        $("#register-btn-group").addClass("d-none");
-
-        $(".chat-container").removeClass("d-none");
+        const accepting = $("#accepting").val();
+        if (accepting == "on")
+        {
+            connection.invoke("GetNickName").catch(err => console.log(`Ocurred a error while sending nickname: ${err}`));
+        }
     });
+    function formatLastSeen(dateString) {
+        const now = new Date();
+        const lastSeenDate = new Date(dateString);
 
-    connection.on("clientList", clientList => {
+        const isToday = now.toDateString() === lastSeenDate.toDateString();
+        const options = { hour: '2-digit', minute: '2-digit' };
+
+        if (isToday) {
+            // Bugün
+            return `Last seen: Today at ${lastSeenDate.toLocaleTimeString([], options)}`;
+        } else {
+            // Bugün değilse tam tarih ve saat
+            return `Last seen: ${lastSeenDate.toLocaleDateString()} at ${lastSeenDate.toLocaleTimeString([], options)}`;
+        }
+    }
+
+    connection.on("clientPage", otherUsers => {
+        console.log("GGeldiiiii");
+        $(".accepting-area").addClass("d-none");
+        $("#exampleModal").addClass("d-none");
+        $(".modal-backdrop").addClass("d-none");
+        $(".chat-container").removeClass("d-none");   
         $("#_clients").html("");
-        $.each(clientList, (index, item) => {
+        $.each(otherUsers, (index, item) => {
             const user = $(".users").first().clone();
             user.removeClass("active");
-            user.html(item.nickName);
+            user.find("span.fw-bold").text(item.userName);
+            console.log("IMMMMAAAGGEEEE:", item.profileImage);
+            user.find("img").attr("src", item.profileImage);
+            let lastSeenText = formatLastSeen(item.lastLogin);
+            user.find("small.text-muted").text(lastSeenText);
             $("#_clients").append(user);
         });
     });

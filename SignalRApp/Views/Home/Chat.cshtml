@@ -5,9 +5,14 @@
             <div class="p-3 bg-success text-white  gap-2 d-flex flex-column" style="height:100px">
                 <div class="d-flex"style="justify-content:space-between;">
                     <h5>My Chats</h5>
-                    <button class="new-group-btn">
-                        <i class="fa-solid fa-user-group" style="color:#f0f2f5"></i>
-                    </button>      
+                    <div class="groups-list">
+                        <button class="new-group-btn">
+                            <i class="fa-solid fa-plus" style="color:#f0f2f5"></i>
+                        </button>
+                        <button class="new-group-btn">
+                            <i class="fa-solid fa-user-group" style="color:#f0f2f5"></i>
+                        </button>
+                    </div>      
                 </div>
                 <div class="d-flex search-box">
                     <button>
@@ -17,9 +22,12 @@
                 </div>
             </div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action users active">
-@*                     <img src="~/media/pp.jpeg" alt="Person 1" class="rounded-circle me-2">
- *@                    Person 1
+                <a href="#" class="list-group-item list-group-item-action users d-flex align-items-center">
+                    <img src="~/media/pp.jpeg" alt="Person 1" class="rounded-circle me-2" style="width: 50px; height: 50px;">
+                    <div class="d-flex flex-column">
+                        <span class="fw-bold">Person 1</span>
+                        <small class="text-muted">Last seen: Today at 14:35</small>
+                    </div>
                 </a>
 
                 <div id="_clients"></div>
@@ -61,13 +69,34 @@
     </div>
 </div>
 
-<div class="container mt-5" id="register-btn-group">
-    <!-- Kayıt ol butonu -->
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#registerForm">Kayıt ol</button>
+<div class="accepting-area">
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+        Sohhbete başla
+    </button>
 
-    <!-- Form alanı -->
-    <div id="registerForm" class="collapse mt-3">
-        <input type="text" class="form-control mb-2" id="txtNickName" placeholder="Adınızı girin" />
-        <button class="btn btn-success" id="btnLogin">Submit</button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kişisel Veri İzni</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex gap-2">
+                        <input type="checkbox" id="accepting" />
+                        <p style="margin-bottom:0px">Kişisel bilgilerimin işlenmesine izin veriyorum.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnLogin">Kabul et</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+

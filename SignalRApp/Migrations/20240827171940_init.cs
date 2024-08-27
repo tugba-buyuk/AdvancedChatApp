@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SignalRApp.Migrations
 {
     /// <inheritdoc />
-    public partial class firstMig : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,8 @@ namespace SignalRApp.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConnectionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -312,9 +314,9 @@ namespace SignalRApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "7140cf5d-ecf2-4374-bb65-759edcfa99ac", null, "User", "USER" },
-                    { "992b5b24-1420-482f-9936-d928129b9c79", null, "Admin", "ADMIN" },
-                    { "d3957d32-293e-40e3-893e-4435c5e83587", null, "Editor", "EDITOR" }
+                    { "84f7dc26-0201-4ee8-b1e1-473e7ecfd54f", null, "Admin", "ADMIN" },
+                    { "d98ce4b5-d159-46e8-9d99-b05635636a2d", null, "User", "USER" },
+                    { "fac433bc-c9a2-4642-98b4-1fa51fcc65aa", null, "Editor", "EDITOR" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -29,8 +29,22 @@ namespace SignalRApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register([FromForm] UserDTO userDto)
+        public async Task<IActionResult> Register([FromForm] UserDTO userDto,IFormFile ProfileImage)
         {
+            if (ModelState.IsValid)
+            {
+                if(ProfileImage is not null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(),
+                        "wwwroot", "media", ProfileImage.FileName);
+                    using(var stream= new FileStream(path, FileMode.Create))
+                    {
+                        await ProfileImage.CopyToAsync(stream);
+                    }
+
+                    userDto.ProfileImage=string.Concat("/media/",ProfileImage.FileName);
+                }
+            }
             var result = await _manager.AuthService.CreateUserAsync(userDto);
             if (!result.Succeeded)
             {

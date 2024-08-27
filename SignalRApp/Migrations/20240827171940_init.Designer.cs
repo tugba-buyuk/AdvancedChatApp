@@ -12,8 +12,8 @@ using Repositories;
 namespace SignalRApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240825160130_firstMig")]
-    partial class firstMig
+    [Migration("20240827171940_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -182,6 +182,10 @@ namespace SignalRApp.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ConnectionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -217,6 +221,10 @@ namespace SignalRApp.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ProfileImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -291,19 +299,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7140cf5d-ecf2-4374-bb65-759edcfa99ac",
+                            Id = "d98ce4b5-d159-46e8-9d99-b05635636a2d",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "992b5b24-1420-482f-9936-d928129b9c79",
+                            Id = "84f7dc26-0201-4ee8-b1e1-473e7ecfd54f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d3957d32-293e-40e3-893e-4435c5e83587",
+                            Id = "fac433bc-c9a2-4642-98b4-1fa51fcc65aa",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });

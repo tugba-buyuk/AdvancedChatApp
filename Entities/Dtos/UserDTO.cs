@@ -20,6 +20,8 @@ namespace Entities.Dtos
 
         [Required(ErrorMessage ="PhoneNumber is a required field.")]
         public string PhoneNumber {  get; init; } = string.Empty;
+        public string ProfileImage { get; set; } = string.Empty;
+
 
     }
 }

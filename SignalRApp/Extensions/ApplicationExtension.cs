@@ -29,6 +29,7 @@ namespace SignalRApp.Extensions
                     Email = "tugba.buyuk@std.yildiz.edu.tr",
                     PhoneNumber = "05344065963",
                     UserName = adminUserName,
+                    ProfileImage= "/media/adminpp.jpg"
                 };
                 var result = await userManager.CreateAsync(user, adminPassword);
                 if (!result.Succeeded)

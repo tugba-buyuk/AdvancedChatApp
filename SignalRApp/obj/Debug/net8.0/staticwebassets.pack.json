@@ -245,6 +245,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\adminpp.jpg",
+      "PackagePath": "staticwebassets\\media\\adminpp.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\foto.jpg",
+      "PackagePath": "staticwebassets\\media\\foto.jpg"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\pp.jpeg",
       "PackagePath": "staticwebassets\\media\\pp.jpeg"
     },
