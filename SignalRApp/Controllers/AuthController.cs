@@ -85,5 +85,16 @@ namespace SignalRApp.Controllers
             }
             return Redirect(model.ReturnUrl ?? "/");
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            var user = _signInManager.Context.User.Identity.Name;
+            var logoutUser= await _userManager.FindByNameAsync(user);
+            await _signInManager.SignOutAsync();
+            logoutUser.ConnectionId =null;
+            logoutUser.LastLogin = DateTime.Now;
+            await _userManager.UpdateAsync(logoutUser);
+            return Redirect("/");
+        }
     }
 }

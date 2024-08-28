@@ -212,7 +212,6 @@ namespace SignalRApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConnectionId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -328,19 +327,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9a60dfb2-b371-4ea0-abe3-7a85cb5e64bb",
+                            Id = "a7ad9d7a-56ba-46f5-836e-18de0c4c84d3",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "f40f297e-9af9-4e85-b796-10cd0e9d8c78",
+                            Id = "d381ec7d-9388-43db-bf1e-66f729f43203",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3e385409-e0d4-4f6a-bc1e-71f485bfcfbe",
+                            Id = "c1c36936-e273-42f6-86ac-e6078c23c95d",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });

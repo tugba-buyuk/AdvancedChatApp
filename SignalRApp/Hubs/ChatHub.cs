@@ -58,10 +58,10 @@ namespace SignalRApp.Hubs
                     IsGroup = false,
                     CreatedAt = DateTime.Now,
                     UserChatRooms = new List<UserChatRoom>
-            {
-                new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now },
-                new UserChatRoom { UserId = receiver.Id, JoinedAt = DateTime.Now }
-            }
+                    {
+                        new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now },
+                        new UserChatRoom { UserId = receiver.Id, JoinedAt = DateTime.Now }
+                    }
                 };
 
                 _context.ChatRooms.Add(chatRoom);
@@ -77,7 +77,10 @@ namespace SignalRApp.Hubs
             };
 
             _context.Messages.Add(message);
+            chatRoom.Messages.Add(message);
             await _context.SaveChangesAsync();
+
+            await Clients.Caller.SendAsync("receiveMessage", message);
 
             if (!string.IsNullOrEmpty(receiver.ConnectionId))
             {
@@ -136,6 +139,33 @@ namespace SignalRApp.Hubs
             }
 
             await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task LoadChatHistory(string receiverName)
+        {
+            var userName = Context.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var receiver = await _userManager.Users.FirstAsync(u => u.UserName == receiverName);
+
+            var chatRoom = await _context.ChatRooms
+                .Include(cr => cr.Messages)
+                .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc => uc.UserId == user.Id && uc.UserId == receiver.Id));
+
+            if (chatRoom != null)
+            {
+                var chatHistory = chatRoom.Messages
+                    .OrderBy(m => m.SentAt)
+                    .Select(m => new
+                    {
+                        m.SenderId,
+                        m.Content,
+                        m.SentAt,
+                        SenderUserName = m.SenderId == user.Id ? userName : receiverName
+                    })
+                    .ToList();
+
+                await Clients.Caller.SendAsync("LoadChatHistory", chatHistory);
+            }
         }
 
     }

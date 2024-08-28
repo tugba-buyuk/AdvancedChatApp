@@ -6,7 +6,7 @@ namespace Entities.Models
     {
         public DateTime LastLogin { get; set; } = DateTime.Now;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string ConnectionId { get; set; }= string.Empty;
+        public string? ConnectionId { get; set; }
         public string ProfileImage {  get; set; } = string.Empty;
 
         public ICollection<Message> SentMessages { get; set; } // Gönderilen mesajlar

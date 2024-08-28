@@ -87,4 +87,35 @@
         }
     });
 
+    connection.on("ReceiveMessage", (message, senderName) => {
+        const isCurrentUser = senderName === $(".chat-window h5").text();
+        const messageClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
+        const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
+
+        const messageHtml = `
+            <div class="d-flex ${messageClass} mb-2">
+                <div class="message ${bgClass} p-2 rounded">${message}</div>
+            </div>
+        `;
+        $("#chat-messages").append(messageHtml);
+        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+    });
+
+    connection.on("LoadChatHistory", (messages) => {
+        $("#chat-messages").empty();
+        $.each(messages, (index, messageObj) => {
+            const isCurrentUser = messageObj.senderName === $(".chat-window h5").text();
+            const messageClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
+            const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
+
+            const messageHtml = `
+                <div class="d-flex ${messageClass} mb-2">
+                    <div class="message ${bgClass} p-2 rounded">${messageObj.messageContent}</div>
+                </div>
+            `;
+            $("#chat-messages").append(messageHtml);
+        });
+        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+    });
+
 });

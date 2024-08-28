@@ -34,7 +34,7 @@ namespace SignalRApp.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ConnectionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConnectionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -340,9 +340,9 @@ namespace SignalRApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3e385409-e0d4-4f6a-bc1e-71f485bfcfbe", null, "Editor", "EDITOR" },
-                    { "9a60dfb2-b371-4ea0-abe3-7a85cb5e64bb", null, "User", "USER" },
-                    { "f40f297e-9af9-4e85-b796-10cd0e9d8c78", null, "Admin", "ADMIN" }
+                    { "a7ad9d7a-56ba-46f5-836e-18de0c4c84d3", null, "User", "USER" },
+                    { "c1c36936-e273-42f6-86ac-e6078c23c95d", null, "Editor", "EDITOR" },
+                    { "d381ec7d-9388-43db-bf1e-66f729f43203", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
