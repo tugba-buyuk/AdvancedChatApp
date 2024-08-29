@@ -32,7 +32,7 @@ namespace Repositories
 
             // UserChatRoom: Many-to-Many relationship between User and ChatRoom
             modelBuilder.Entity<UserChatRoom>()
-                .HasKey(uc => new { uc.UserId, uc.ChatRoomId }); // Composite Key
+     .HasKey(uc => new { uc.UserId, uc.ChatRoomId }); // Composite Key
 
             modelBuilder.Entity<UserChatRoom>()
                 .HasOne(uc => uc.User)
@@ -45,6 +45,13 @@ namespace Repositories
                 .WithMany(cr => cr.UserChatRooms)
                 .HasForeignKey(uc => uc.ChatRoomId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // Yeni ReceiverId yapılandırması
+            modelBuilder.Entity<UserChatRoom>()
+                .HasOne(uc => uc.Receiver)
+                .WithMany()
+                .HasForeignKey(uc => uc.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Message: One-to-Many relationship with ChatRoom and User
             modelBuilder.Entity<Message>()

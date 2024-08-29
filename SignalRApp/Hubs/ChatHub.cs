@@ -47,8 +47,11 @@ namespace SignalRApp.Hubs
             var receiver = await _userManager.Users.FirstAsync(u => u.UserName == receiverName);
 
             var chatRoom = await _context.ChatRooms
-                .Include(cr => cr.UserChatRooms)
-                .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc => uc.UserId == user.Id && uc.UserId == receiver.Id));
+             .Include(cr => cr.Messages)
+             .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc =>
+                 (uc.UserId == user.Id && uc.ReceiverId == receiver.Id) ||
+                 (uc.UserId == receiver.Id && uc.ReceiverId == user.Id)
+             ));
 
             if (chatRoom == null)
             {
@@ -59,8 +62,8 @@ namespace SignalRApp.Hubs
                     CreatedAt = DateTime.Now,
                     UserChatRooms = new List<UserChatRoom>
                     {
-                        new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now },
-                        new UserChatRoom { UserId = receiver.Id, JoinedAt = DateTime.Now }
+                        new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now , ReceiverId=receiver.Id }
+                        
                     }
                 };
 
@@ -76,15 +79,23 @@ namespace SignalRApp.Hubs
                 SentAt = DateTime.Now
             };
 
+            var messageDto = new
+            {
+                SenderId = message.SenderId,
+                ChatRoomId = message.ChatRoomId,
+                Content = message.Content,
+                SentAt = message.SentAt
+            };
+
             _context.Messages.Add(message);
             chatRoom.Messages.Add(message);
             await _context.SaveChangesAsync();
 
-            await Clients.Caller.SendAsync("receiveMessage", message);
+            await Clients.Caller.SendAsync("ReceiveMessage", messageDto, user.UserName);
 
             if (!string.IsNullOrEmpty(receiver.ConnectionId))
             {
-                await Clients.Client(receiver.ConnectionId).SendAsync("receiveMessage", message);
+                await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveMessage", message,user.UserName);
             }
             else
             {
@@ -118,7 +129,7 @@ namespace SignalRApp.Hubs
 
                 foreach (var pendingMessage in pendingMessages)
                 {
-                    await Clients.Caller.SendAsync("receiveMessage", pendingMessage);
+                    await Clients.Caller.SendAsync("ReceiveMessage", pendingMessage);
                     _context.PendingMessages.Remove(pendingMessage);
                 }
 
@@ -135,6 +146,7 @@ namespace SignalRApp.Hubs
             if (user != null)
             {
                 ConnectedUsers.Remove(user);
+                user.ConnectionId = null;
                 await _userManager.UpdateAsync(user);
             }
 
@@ -148,8 +160,11 @@ namespace SignalRApp.Hubs
             var receiver = await _userManager.Users.FirstAsync(u => u.UserName == receiverName);
 
             var chatRoom = await _context.ChatRooms
-                .Include(cr => cr.Messages)
-                .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc => uc.UserId == user.Id && uc.UserId == receiver.Id));
+             .Include(cr => cr.Messages)
+             .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc =>
+                 (uc.UserId == user.Id && uc.ReceiverId == receiver.Id) ||
+                 (uc.UserId == receiver.Id && uc.ReceiverId == user.Id)
+             ));
 
             if (chatRoom != null)
             {

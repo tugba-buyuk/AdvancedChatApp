@@ -294,11 +294,18 @@ namespace SignalRApp.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ChatRoomId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserChatRooms", x => new { x.UserId, x.ChatRoomId });
+                    table.ForeignKey(
+                        name: "FK_UserChatRooms_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserChatRooms_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -340,9 +347,9 @@ namespace SignalRApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a7ad9d7a-56ba-46f5-836e-18de0c4c84d3", null, "User", "USER" },
-                    { "c1c36936-e273-42f6-86ac-e6078c23c95d", null, "Editor", "EDITOR" },
-                    { "d381ec7d-9388-43db-bf1e-66f729f43203", null, "Admin", "ADMIN" }
+                    { "4746faee-f254-47a4-a117-4e385327d9eb", null, "Admin", "ADMIN" },
+                    { "685ee7ba-8757-44dd-89ac-33a3945b64a5", null, "Editor", "EDITOR" },
+                    { "73e3db1a-3208-47eb-9516-e110b0da6bc0", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -433,6 +440,11 @@ namespace SignalRApp.Migrations
                 name: "IX_UserChatRooms_ChatRoomId",
                 table: "UserChatRooms",
                 column: "ChatRoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserChatRooms_ReceiverId",
+                table: "UserChatRooms",
+                column: "ReceiverId");
         }
 
         /// <inheritdoc />

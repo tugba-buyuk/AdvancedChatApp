@@ -10,10 +10,12 @@ namespace Entities.Models
     {
         public int Id { get; set; } //PK
         public string UserId { get; set; } //FK 
+        public string ReceiverId {  get; set; }
         public int ChatRoomId { get; set; } //FK
         public DateTime JoinedAt { get; set; } = DateTime.Now;
 
         public User User { get; set; } // Navigation property
+        public User Receiver { get; set; } // Navigation property
         public ChatRoom ChatRoom { get; set; } // Navigation property
     }
 

@@ -291,9 +291,15 @@ namespace SignalRApp.Migrations
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("UserId", "ChatRoomId");
 
                     b.HasIndex("ChatRoomId");
+
+                    b.HasIndex("ReceiverId");
 
                     b.ToTable("UserChatRooms");
                 });
@@ -327,19 +333,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a7ad9d7a-56ba-46f5-836e-18de0c4c84d3",
+                            Id = "73e3db1a-3208-47eb-9516-e110b0da6bc0",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d381ec7d-9388-43db-bf1e-66f729f43203",
+                            Id = "4746faee-f254-47a4-a117-4e385327d9eb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c1c36936-e273-42f6-86ac-e6078c23c95d",
+                            Id = "685ee7ba-8757-44dd-89ac-33a3945b64a5",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -546,6 +552,12 @@ namespace SignalRApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Models.User", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.User", "User")
                         .WithMany("UserChatRooms")
                         .HasForeignKey("UserId")
@@ -553,6 +565,8 @@ namespace SignalRApp.Migrations
                         .IsRequired();
 
                     b.Navigation("ChatRoom");
+
+                    b.Navigation("Receiver");
 
                     b.Navigation("User");
                 });
