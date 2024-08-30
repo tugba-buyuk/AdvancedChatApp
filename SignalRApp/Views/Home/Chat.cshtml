@@ -59,9 +59,11 @@
                 </div>
             </div>
             <div class="input-group p-3 border-top">
-                <button class="btn btn-outline-secondary" type="button">
+                
+                <button class="btn btn-outline-secondary" type="button" id="uploadButton">
                     <i class="fas fa-paperclip"></i> <!-- Font Awesome Dosya Ekleme İkonu -->
                 </button>
+                <input type="file" id="fileInput" style="display: none;" />
                 <input  class="form-control" id="messageArea" placeholder="Type a message...">
                 <button class="btn btn-success" id="sendBtn" type="button">Send</button>
             </div>

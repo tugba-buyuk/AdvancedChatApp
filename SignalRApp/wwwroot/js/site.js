@@ -1,4 +1,9 @@
 ﻿$(function () {
+
+    document.getElementById('uploadButton').addEventListener('click', function () {
+        document.getElementById('fileInput').click();
+    });
+
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:5269/chathub")
         .withAutomaticReconnect([1000, 2000, 4000]) // parantez içinde ms cinsinden periyotlar belirlenmezse default olarak 0 2 10 30 s aralıklarla istek atar
@@ -77,14 +82,29 @@
 
     // Mesaj gönderme
     $("#sendBtn").on("click", () => {
-        if (activeUser) {
-            const receiverName = activeUser.find('.info-username').text();
-            const messageContent = $("#messageArea").val();
-            connection.invoke("SendMessage", messageContent, receiverName).catch(err => console.log(`Error while sending message: ${err}`));
-            $("#messageArea").val(""); // Mesaj kutusunu temizle
-        } else {
-            alert("Lütfen bir kullanıcı seçin.");
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const arrayBuffer = e.target.result;
+                const buffer = new Uint8Array(arrayBuffer);
+                connection.invoke("UploadFile", file.name, buffer)
+                    .catch(err => console.error(err.toString()));
+            };
+            reader.readAsArrayBuffer(file);
         }
+        else {
+            if (activeUser) {
+                const receiverName = activeUser.find('.info-username').text();
+                const messageContent = $("#messageArea").val();
+                connection.invoke("SendMessage", messageContent, receiverName).catch(err => console.log(`Error while sending message: ${err}`));
+                $("#messageArea").val(""); // Mesaj kutusunu temizle
+            } else {
+                alert("Lütfen bir kullanıcı seçin.");
+            }
+        }
+       
     });
 
     connection.on("ReceiveMessage", (message, senderName) => {

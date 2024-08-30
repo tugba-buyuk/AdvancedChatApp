@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MUAl5NaTzfsjYypOQga9phMDEcG3hr0azoJmwNQNUVI=",
+  "Hash": "2ndM4qengAQhDeVQNz+nktRhGLzNGPkt/USFSrc6Rw8=",
   "Source": "SignalRApp",
   "BasePath": "_content/SignalRApp",
   "Mode": "Default",
@@ -1195,6 +1195,25 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\20240825_125133.jpg",
+      "SourceId": "SignalRApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\",
+      "BasePath": "_content/SignalRApp",
+      "RelativePath": "media/20240825_125133.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\media\\20240825_125133.jpg"
+    },
+    {
       "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\adminpp.jpg",
       "SourceId": "SignalRApp",
       "SourceType": "Discovered",
@@ -1212,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\media\\adminpp.jpg"
+    },
+    {
+      "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\blog1.webp",
+      "SourceId": "SignalRApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\",
+      "BasePath": "_content/SignalRApp",
+      "RelativePath": "media/blog1.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\media\\blog1.webp"
     },
     {
       "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\foto.jpg",

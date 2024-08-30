@@ -83,7 +83,7 @@ namespace SignalRApp.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Wrong password.");
             }
-            return Redirect(model.ReturnUrl ?? "/");
+            return RedirectToAction("Index", "Home", new { userName = user.UserName });
         }
 
         public async Task<IActionResult> Logout()

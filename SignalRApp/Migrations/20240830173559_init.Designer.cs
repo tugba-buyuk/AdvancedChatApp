@@ -12,7 +12,7 @@ using Repositories;
 namespace SignalRApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240829173249_init")]
+    [Migration("20240830173559_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -56,9 +56,20 @@ namespace SignalRApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("FileExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FileType")
                         .IsRequired()
@@ -336,19 +347,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "73e3db1a-3208-47eb-9516-e110b0da6bc0",
+                            Id = "b06a0de6-9ede-47c9-90d8-4cb9b0405a45",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "4746faee-f254-47a4-a117-4e385327d9eb",
+                            Id = "66bc6f5a-812f-46de-886e-06a03d4a7281",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "685ee7ba-8757-44dd-89ac-33a3945b64a5",
+                            Id = "a5d79bcf-31e6-4a62-8963-a762cd804073",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });

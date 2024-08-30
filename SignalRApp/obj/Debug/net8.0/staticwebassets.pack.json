@@ -245,8 +245,16 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\20240825_125133.jpg",
+      "PackagePath": "staticwebassets\\media\\20240825_125133.jpg"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\adminpp.jpg",
       "PackagePath": "staticwebassets\\media\\adminpp.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\blog1.webp",
+      "PackagePath": "staticwebassets\\media\\blog1.webp"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\foto.jpg",

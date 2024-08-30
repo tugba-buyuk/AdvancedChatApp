@@ -327,7 +327,10 @@ namespace SignalRApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MessageId = table.Column<int>(type: "int", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileExtension = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false),
                     FileType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -347,9 +350,9 @@ namespace SignalRApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "4746faee-f254-47a4-a117-4e385327d9eb", null, "Admin", "ADMIN" },
-                    { "685ee7ba-8757-44dd-89ac-33a3945b64a5", null, "Editor", "EDITOR" },
-                    { "73e3db1a-3208-47eb-9516-e110b0da6bc0", null, "User", "USER" }
+                    { "66bc6f5a-812f-46de-886e-06a03d4a7281", null, "Admin", "ADMIN" },
+                    { "a5d79bcf-31e6-4a62-8963-a762cd804073", null, "Editor", "EDITOR" },
+                    { "b06a0de6-9ede-47c9-90d8-4cb9b0405a45", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(

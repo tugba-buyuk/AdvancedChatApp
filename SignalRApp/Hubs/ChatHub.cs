@@ -36,7 +36,7 @@ namespace SignalRApp.Hubs
                 {
                     ConnectedUsers.Add(user);
                 }
-                await Clients.All.SendAsync("clientPage",otherUsers);
+                await Clients.Caller.SendAsync("clientPage",otherUsers);
             }
         }
 
@@ -95,7 +95,7 @@ namespace SignalRApp.Hubs
 
             if (!string.IsNullOrEmpty(receiver.ConnectionId))
             {
-                await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveMessage", message,user.UserName);
+                await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveMessage", messageDto, user.UserName);
             }
             else
             {
@@ -181,6 +181,57 @@ namespace SignalRApp.Hubs
 
                 await Clients.Caller.SendAsync("LoadChatHistory", chatHistory);
             }
+        }
+
+        public async Task UploadFile(string fileName, byte[] fileContent)
+        {
+            if (fileContent == null || fileContent.Length == 0)
+            {
+                throw new ArgumentException("Dosya içeriği boş olamaz.");
+            }
+
+            // Dosyanın sunucudaki yolu (örneğin, wwwroot/uploads içinde saklanacak)
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            var filePath = Path.Combine(uploadsFolderPath, fileName);
+
+            // Dosya yolunun bulunduğu dizinin mevcut olduğundan emin olun
+            if (!Directory.Exists(uploadsFolderPath))
+            {
+                Directory.CreateDirectory(uploadsFolderPath);
+            }
+
+            // Dosya içeriğini fiziksel dosyaya yazma
+            await File.WriteAllBytesAsync(filePath, fileContent);
+
+            // Veritabanına dosya bilgilerini kaydet
+            var fileAttachment = new FileAttachment
+            {
+                FileName = fileName,
+                FilePath = filePath, // Dosyanın fiziksel yolunu saklamak için
+                FileType = GetFileType(fileName),
+                FileSize = fileContent.Length,
+                UploadedAt = DateTime.Now
+            };
+
+            _context.FileAttachments.Add(fileAttachment);
+            await _context.SaveChangesAsync();
+
+            // Dosya başarıyla yüklendiğinde client'lara bildirim gönder
+            await Clients.All.SendAsync("FileUploaded", fileAttachment); //!!!!!!!! Client'a göre ayarlicaz
+        }
+
+        // Yardımcı metot dosya türünü belirlemek için
+        private string GetFileType(string fileName)
+        {
+            var extension = Path.GetExtension(fileName);
+            return extension switch
+            {
+                ".jpg" => "image/jpeg",
+                ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".pdf" => "application/pdf",
+                _ => "application/octet-stream"
+            };
         }
 
     }
