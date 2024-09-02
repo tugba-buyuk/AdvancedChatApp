@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2ndM4qengAQhDeVQNz+nktRhGLzNGPkt/USFSrc6Rw8=",
+  "Hash": "6M5eKc7MTLeapXv1xGXLVkZRKWYJIzSotIWnsUPgrvQ=",
   "Source": "SignalRApp",
   "BasePath": "_content/SignalRApp",
   "Mode": "Default",
@@ -1288,6 +1288,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\media\\pp.jpeg"
+    },
+    {
+      "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yeni Metin Belgesi (2).txt",
+      "SourceId": "SignalRApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\",
+      "BasePath": "_content/SignalRApp",
+      "RelativePath": "uploads/Yeni Metin Belgesi (2).txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Yeni Metin Belgesi (2).txt"
+    },
+    {
+      "Identity": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yeni Metin Belgesi.txt",
+      "SourceId": "SignalRApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\",
+      "BasePath": "_content/SignalRApp",
+      "RelativePath": "uploads/Yeni Metin Belgesi.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Yeni Metin Belgesi.txt"
     }
   ]
 }

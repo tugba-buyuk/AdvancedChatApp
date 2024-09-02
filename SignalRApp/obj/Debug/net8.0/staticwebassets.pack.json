@@ -265,6 +265,14 @@
       "PackagePath": "staticwebassets\\media\\pp.jpeg"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yeni Metin Belgesi (2).txt",
+      "PackagePath": "staticwebassets\\uploads\\Yeni Metin Belgesi (2).txt"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yeni Metin Belgesi.txt",
+      "PackagePath": "staticwebassets\\uploads\\Yeni Metin Belgesi.txt"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SignalRApp.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

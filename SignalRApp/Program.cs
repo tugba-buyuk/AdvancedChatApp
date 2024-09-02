@@ -10,7 +10,9 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureRouting();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(e => {
+    e.MaximumReceiveMessageSize = 102400000;
+});
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 
     policy.AllowAnyMethod()

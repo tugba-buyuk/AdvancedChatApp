@@ -81,30 +81,65 @@
     });
 
     // Mesaj gönderme
-    $("#sendBtn").on("click", () => {
+    $("#sendBtn").on("click", async () => {
         const fileInput = document.getElementById("fileInput");
         const file = fileInput.files[0];
+
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
-                const arrayBuffer = e.target.result;
-                const buffer = new Uint8Array(arrayBuffer);
-                connection.invoke("UploadFile", file.name, buffer)
-                    .catch(err => console.error(err.toString()));
+            reader.onload = async function (e) {
+                const base64String = btoa(
+                    new Uint8Array(e.target.result)
+                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
+                );
+                await connection.invoke("SendFileBase64", file.name, base64String);
             };
             reader.readAsArrayBuffer(file);
-        }
-        else {
+        } else {
             if (activeUser) {
                 const receiverName = activeUser.find('.info-username').text();
                 const messageContent = $("#messageArea").val();
-                connection.invoke("SendMessage", messageContent, receiverName).catch(err => console.log(`Error while sending message: ${err}`));
+                try {
+                    await connection.invoke("SendMessage", messageContent, receiverName);
+                } catch (err) {
+                    console.log(`Error while sending message: ${err}`);
+                }
                 $("#messageArea").val(""); // Mesaj kutusunu temizle
             } else {
                 alert("Lütfen bir kullanıcı seçin.");
             }
         }
-       
+    });
+
+    connection.on("ReceiveFile", (fileName, fileUrl, senderName) => {
+        const isCurrentUser = senderName === $(".chat-window h5").text();
+        const fileClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
+        const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
+
+        // Dosya türüne göre uygun HTML içeriği oluştur
+        let fileHtml = '';
+        if (fileUrl.endsWith('.jpg') || fileUrl.endsWith('.png') || fileUrl.endsWith('.gif')) {
+            // Resim dosyası
+            fileHtml = `
+            <div class="d-flex ${fileClass} mb-2">
+                <div class="file-preview ${bgClass} p-2 rounded">
+                    <img src="${fileUrl}" alt="${fileName}" style="max-width: 200px; max-height: 200px;" />
+                </div>
+            </div>
+        `;
+        } else {
+            // Diğer dosya türleri
+            fileHtml = `
+            <div class="d-flex ${fileClass} mb-2">
+                <div class="file-preview ${bgClass} p-2 rounded">
+                    <a href="${fileUrl}" download="${fileName}">${fileName}</a>
+                </div>
+            </div>
+        `;
+        }
+
+        $("#chat-messages").append(fileHtml);
+        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
     });
 
     connection.on("ReceiveMessage", (message, senderName) => {
