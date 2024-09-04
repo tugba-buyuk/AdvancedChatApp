@@ -273,6 +273,22 @@
       "PackagePath": "staticwebassets\\uploads\\Yeni Metin Belgesi.txt"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\emoş.png",
+      "PackagePath": "staticwebassets\\uploads\\emoş.png"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\photo_5965464933263065098_y.jpg",
+      "PackagePath": "staticwebassets\\uploads\\photo_5965464933263065098_y.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\sooorrr.jpg",
+      "PackagePath": "staticwebassets\\uploads\\sooorrr.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\sor3.jpg",
+      "PackagePath": "staticwebassets\\uploads\\sor3.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SignalRApp.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

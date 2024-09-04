@@ -84,20 +84,20 @@
     $("#sendBtn").on("click", async () => {
         const fileInput = document.getElementById("fileInput");
         const file = fileInput.files[0];
-
+        const receiverName = activeUser.find('.info-username').text();
         if (file) {
+            
             const reader = new FileReader();
             reader.onload = async function (e) {
                 const base64String = btoa(
                     new Uint8Array(e.target.result)
                         .reduce((data, byte) => data + String.fromCharCode(byte), '')
                 );
-                await connection.invoke("SendFileBase64", file.name, base64String);
+                await connection.invoke("SendFileBase64", file.name, base64String, receiverName);
             };
             reader.readAsArrayBuffer(file);
         } else {
             if (activeUser) {
-                const receiverName = activeUser.find('.info-username').text();
                 const messageContent = $("#messageArea").val();
                 try {
                     await connection.invoke("SendMessage", messageContent, receiverName);
@@ -161,14 +161,46 @@
             const isCurrentUser = messageObj.senderUserName === $(".chat-window h5").text();
             const messageClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
             const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
-            const messageHtml = `
+
+            let messageHtml = '';
+
+            // Dosya ekleri varsa onları ekleyelim ve messageObj.content'i gösterme
+            if (messageObj.attachments && messageObj.attachments.length > 0) {
+                $.each(messageObj.attachments, (i, attachment) => {
+                    if (attachment.fileType.startsWith("image/")) {
+                        // Resim dosyaları için img etiketi kullan ve tıklanabilir yap
+                        messageHtml += `
+                        <div class="d-flex ${messageClass} mb-2">
+                            <a href="${attachment.fileUrl}" target="_blank">
+                                <img src="${attachment.fileUrl}" alt="${attachment.fileName}" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                            </a>
+                        </div>
+                    `;
+                    } else {
+                        // Diğer dosyalar için bir bağlantı ekleyelim
+                        messageHtml += `
+                        <div class="d-flex ${messageClass} mb-2">
+                            <a href="${attachment.fileUrl}" target="_blank" class="text-decoration-none">
+                                File: ${attachment.fileName}
+                            </a>
+                        </div>
+                    `;
+                    }
+                });
+            } else {
+                // Dosya yoksa sadece mesaj içeriğini göster
+                messageHtml += `
                 <div class="d-flex ${messageClass} mb-2">
                     <div class="message ${bgClass} p-2 rounded">${messageObj.content}</div>
-                </div>
-            `;
+                </div>`;
+            }
+
             $("#chat-messages").append(messageHtml);
         });
+
         $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
     });
+
+
 
 });

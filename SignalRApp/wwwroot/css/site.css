@@ -139,3 +139,8 @@ body {
         opacity: 0; /* Dosya giriþ elemanýnýn görünmemesini saðlar */
         cursor: pointer; /* Kullanýcýya butona týklanabileceðini gösterir */
     }
+
+
+.file-preview .bg-primary .text-white >a{
+    color:white;
+}

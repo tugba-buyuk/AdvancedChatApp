@@ -14,7 +14,7 @@ namespace SignalRApp.Hubs
         public static List<User> ConnectedUsers = new List<User>();
         private readonly UserManager<User> _userManager;
         private readonly RepositoryContext _context;
-        public ChatHub(UserManager<User> userManager,RepositoryContext context)
+        public ChatHub(UserManager<User> userManager, RepositoryContext context)
         {
             _userManager = userManager;
             _context = context;
@@ -23,9 +23,9 @@ namespace SignalRApp.Hubs
         public async Task GetNickName()
         {
             var userName = Context.User.Identity.Name;
-            var connectionId=Context.ConnectionId;
+            var connectionId = Context.ConnectionId;
             var allUsers = await _userManager.Users.ToListAsync();
-            var user=await _userManager.FindByNameAsync(userName);
+            var user = await _userManager.FindByNameAsync(userName);
             user.ConnectionId = connectionId;
             await _userManager.UpdateAsync(user);
             var otherUsers = allUsers.Where(u => u.UserName != userName).ToList();
@@ -36,7 +36,7 @@ namespace SignalRApp.Hubs
                 {
                     ConnectedUsers.Add(user);
                 }
-                await Clients.Caller.SendAsync("clientPage",otherUsers);
+                await Clients.Caller.SendAsync("clientPage", otherUsers);
             }
         }
 
@@ -63,7 +63,7 @@ namespace SignalRApp.Hubs
                     UserChatRooms = new List<UserChatRoom>
                     {
                         new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now , ReceiverId=receiver.Id }
-                        
+
                     }
                 };
 
@@ -139,7 +139,7 @@ namespace SignalRApp.Hubs
             await base.OnConnectedAsync();
         }
 
-         public override async Task OnDisconnectedAsync(Exception exception)
+        public override async Task OnDisconnectedAsync(Exception exception)
         {
             var userName = Context.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
@@ -160,11 +160,12 @@ namespace SignalRApp.Hubs
             var receiver = await _userManager.Users.FirstAsync(u => u.UserName == receiverName);
 
             var chatRoom = await _context.ChatRooms
-             .Include(cr => cr.Messages)
-             .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc =>
-                 (uc.UserId == user.Id && uc.ReceiverId == receiver.Id) ||
-                 (uc.UserId == receiver.Id && uc.ReceiverId == user.Id)
-             ));
+                .Include(cr => cr.Messages)
+                    .ThenInclude(m => m.Attachments) // Dosya eklerini de dahil et
+                .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc =>
+                    (uc.UserId == user.Id && uc.ReceiverId == receiver.Id) ||
+                    (uc.UserId == receiver.Id && uc.ReceiverId == user.Id)
+                ));
 
             if (chatRoom != null)
             {
@@ -175,7 +176,13 @@ namespace SignalRApp.Hubs
                         m.SenderId,
                         m.Content,
                         m.SentAt,
-                        SenderUserName = m.SenderId == user.Id ? userName : receiverName
+                        SenderUserName = m.SenderId == user.Id ? userName : receiverName,
+                        Attachments = m.Attachments.Select(a => new
+                        {
+                            a.FileName,
+                            a.FileType,
+                            FileUrl = $"/uploads/{a.FileName}" // Dosya URL'sini oluştur
+                        }).ToList()
                     })
                     .ToList();
 
@@ -198,13 +205,42 @@ namespace SignalRApp.Hubs
         }
 
 
-        public async Task SendFileBase64(string fileName, string fileBase64)
+        public async Task SendFileBase64(string fileName, string fileBase64, string receiverName)
         {
+            var userName = Context.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var receiver = await _userManager.Users.FirstAsync(u => u.UserName == receiverName);
+
+            var chatRoom = await _context.ChatRooms
+             .Include(cr => cr.Messages)
+             .FirstOrDefaultAsync(cr => cr.UserChatRooms.Any(uc =>
+                 (uc.UserId == user.Id && uc.ReceiverId == receiver.Id) ||
+                 (uc.UserId == receiver.Id && uc.ReceiverId == user.Id)
+             ));
+
+            if (chatRoom == null)
+            {
+                chatRoom = new ChatRoom
+                {
+                    RoomName = "Private Chat",
+                    IsGroup = false,
+                    CreatedAt = DateTime.Now,
+                    UserChatRooms = new List<UserChatRoom>
+                    {
+                        new UserChatRoom { UserId = user.Id, JoinedAt = DateTime.Now , ReceiverId=receiver.Id }
+
+                    }
+                };
+
+                _context.ChatRooms.Add(chatRoom);
+
+            }
+
             // Base64'ü byte dizisine çevir
             var fileContent = Convert.FromBase64String(fileBase64);
 
             // Dosyanın sunucudaki yolu (örneğin, wwwroot/uploads içinde saklanacak)
-            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+            var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             var filePath = Path.Combine(uploadsFolderPath, fileName);
 
             // Dosya yolunun bulunduğu dizinin mevcut olduğundan emin olun
@@ -217,31 +253,38 @@ namespace SignalRApp.Hubs
             await File.WriteAllBytesAsync(filePath, fileContent);
 
 
+            var message = new Message
+            {
+                SenderId = user.Id,
+                ChatRoomId = chatRoom.Id,
+                SentAt = DateTime.Now,
+                Content = $"File: {fileName}", // Mesaj içeriği olarak dosya ismi
+                Attachments = new List<FileAttachment>()
+            };
+
             // Veritabanına dosya bilgilerini kaydet
             var fileAttachment = new FileAttachment
             {
                 FileName = fileName,
-                FilePath = filePath, // Dosyanın fiziksel yolunu saklamak için
+                FilePath = filePath,
+                FileExtension = Path.GetExtension(fileName),
                 FileType = GetFileType(fileName),
                 FileSize = fileContent.Length,
-                UploadedAt = DateTime.Now
+                UploadedAt = DateTime.Now,
+                Message = message
             };
 
+            message.Attachments.Add(fileAttachment);
+            _context.Messages.Add(message);
             _context.FileAttachments.Add(fileAttachment);
-            await _context.SaveChangesAsync();
-
 
             // Dosya URL'sini oluştur
-            var fileUrl = $"/files/{fileName}";
+            var fileUrl = $"/uploads/{fileName}";
             var senderName = Context.User.Identity.Name;
             // Dosya URL'sini tüm istemcilere gönder
             await Clients.Caller.SendAsync("ReceiveFile", fileName, fileUrl, senderName);
-            await Clients.Caller.SendAsync("ReceiveFile", fileName, fileUrl, senderName);
-
-            _context.FileAttachments.Add(fileAttachment);
+            await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveFile", fileName, fileUrl, receiverName);
             await _context.SaveChangesAsync();
-
-
 
         }
     }
