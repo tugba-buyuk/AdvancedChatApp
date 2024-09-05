@@ -199,11 +199,11 @@ namespace SignalRApp.Hubs
                 ".jpg" => "image/jpeg",
                 ".jpeg" => "image/jpeg",
                 ".png" => "image/png",
+                ".webp" => "image/webp",
                 ".pdf" => "application/pdf",
                 _ => "application/octet-stream"
             };
         }
-
 
         public async Task SendFileBase64(string fileName, string fileBase64, string receiverName)
         {
@@ -283,7 +283,7 @@ namespace SignalRApp.Hubs
             var senderName = Context.User.Identity.Name;
             // Dosya URL'sini tüm istemcilere gönder
             await Clients.Caller.SendAsync("ReceiveFile", fileName, fileUrl, senderName);
-            await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveFile", fileName, fileUrl, receiverName);
+            await Clients.Client(receiver.ConnectionId).SendAsync("ReceiveFile", fileName, fileUrl, user.UserName);
             await _context.SaveChangesAsync();
 
         }

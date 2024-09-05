@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\SignalRApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\css\\emojionearea.min.css",
+      "PackagePath": "staticwebassets\\css\\emojionearea.min.css"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\js\\emojionearea.min.js",
+      "PackagePath": "staticwebassets\\js\\emojionearea.min.js"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\js\\site.js",
@@ -257,12 +265,20 @@
       "PackagePath": "staticwebassets\\media\\blog1.webp"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\blog4.webp",
+      "PackagePath": "staticwebassets\\media\\blog4.webp"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\foto.jpg",
       "PackagePath": "staticwebassets\\media\\foto.jpg"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\media\\pp.jpeg",
       "PackagePath": "staticwebassets\\media\\pp.jpeg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\My Resume (1)_page-0001.jpg",
+      "PackagePath": "staticwebassets\\uploads\\My Resume (1)_page-0001.jpg"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yeni Metin Belgesi (2).txt",
@@ -273,12 +289,56 @@
       "PackagePath": "staticwebassets\\uploads\\Yeni Metin Belgesi.txt"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\Yetenek Pasaportu.pdf",
+      "PackagePath": "staticwebassets\\uploads\\Yetenek Pasaportu.pdf"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\adminpp.jpg",
+      "PackagePath": "staticwebassets\\uploads\\adminpp.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\ahahahah.png",
+      "PackagePath": "staticwebassets\\uploads\\ahahahah.png"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\blog2 (1) (1).webp",
+      "PackagePath": "staticwebassets\\uploads\\blog2 (1) (1).webp"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\blog2 (1).webp",
+      "PackagePath": "staticwebassets\\uploads\\blog2 (1).webp"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\blog2.webp",
+      "PackagePath": "staticwebassets\\uploads\\blog2.webp"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\emoş.png",
       "PackagePath": "staticwebassets\\uploads\\emoş.png"
     },
     {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\photo_5938457629150003280_y.jpg",
+      "PackagePath": "staticwebassets\\uploads\\photo_5938457629150003280_y.jpg"
+    },
+    {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\photo_5965464933263065098_y.jpg",
       "PackagePath": "staticwebassets\\uploads\\photo_5965464933263065098_y.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\photo_5969908240139536380_y.jpg",
+      "PackagePath": "staticwebassets\\uploads\\photo_5969908240139536380_y.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\pp.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\pp.jpeg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\slide-02.jpg",
+      "PackagePath": "staticwebassets\\uploads\\slide-02.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\slide-04.jpg",
+      "PackagePath": "staticwebassets\\uploads\\slide-04.jpg"
     },
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\sooorrr.jpg",
@@ -287,6 +347,10 @@
     {
       "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\sor3.jpg",
       "PackagePath": "staticwebassets\\uploads\\sor3.jpg"
+    },
+    {
+      "Id": "C:\\AdvancedChatApp\\SignalRApp\\wwwroot\\uploads\\vesikalık.jpg",
+      "PackagePath": "staticwebassets\\uploads\\vesikalık.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SignalRApp.Microsoft.AspNetCore.StaticWebAssets.props",

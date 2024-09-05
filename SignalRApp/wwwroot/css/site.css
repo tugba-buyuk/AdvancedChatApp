@@ -144,3 +144,8 @@ body {
 .file-preview .bg-primary .text-white >a{
     color:white;
 }
+
+
+.emoji-picker {
+    max-height: 300px;
+}

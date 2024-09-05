@@ -80,31 +80,42 @@
         activeUser = $(".users.active");
     });
 
+    $(document).ready(function () {
+        $("#messageArea").emojioneArea({
+            pickerPosition: "bottom",
+            tonesStyle: "background",
+            emojisPath: "https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/"
+        });
+    });
     // Mesaj gönderme
     $("#sendBtn").on("click", async () => {
         const fileInput = document.getElementById("fileInput");
         const file = fileInput.files[0];
         const receiverName = activeUser.find('.info-username').text();
+
         if (file) {
-            
             const reader = new FileReader();
             reader.onload = async function (e) {
                 const base64String = btoa(
                     new Uint8Array(e.target.result)
                         .reduce((data, byte) => data + String.fromCharCode(byte), '')
                 );
-                await connection.invoke("SendFileBase64", file.name, base64String, receiverName);
+                try {
+                    await connection.invoke("SendFileBase64", file.name, base64String, receiverName);
+                } catch (err) {
+                    console.error(`Error while sending file: ${err}`);
+                }
             };
             reader.readAsArrayBuffer(file);
         } else {
-            if (activeUser) {
+            if (activeUser.length > 0) {
                 const messageContent = $("#messageArea").val();
                 try {
                     await connection.invoke("SendMessage", messageContent, receiverName);
+                    $("#messageArea").val(""); // Clear the message area
                 } catch (err) {
-                    console.log(`Error while sending message: ${err}`);
+                    console.error(`Error while sending message: ${err}`);
                 }
-                $("#messageArea").val(""); // Mesaj kutusunu temizle
             } else {
                 alert("Lütfen bir kullanıcı seçin.");
             }
@@ -112,7 +123,9 @@
     });
 
     connection.on("ReceiveFile", (fileName, fileUrl, senderName) => {
+        console.log("ReceiveFile SenderName: ", senderName);
         const isCurrentUser = senderName === $(".chat-window h5").text();
+        console.log("ReceiveFile isCurrent:", isCurrentUser);
         const fileClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
         const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
 
@@ -122,11 +135,11 @@
             // Resim dosyası
             fileHtml = `
             <div class="d-flex ${fileClass} mb-2">
-                <div class="file-preview ${bgClass} p-2 rounded">
-                    <img src="${fileUrl}" alt="${fileName}" style="max-width: 200px; max-height: 200px;" />
-                </div>
-            </div>
-        `;
+                <a href="${fileUrl}" target="_blank">
+                    <img src="${fileUrl}" alt="${fileName}" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                 </a>
+            </div>`;
+
         } else {
             // Diğer dosya türleri
             fileHtml = `
@@ -143,16 +156,60 @@
     });
 
     connection.on("ReceiveMessage", (message, senderName) => {
-        const isCurrentUser = senderName === $(".chat-window h5").text();
-        const messageClass = isCurrentUser ? "justify-content-start" : "justify-content-end";
-        const bgClass = isCurrentUser ? "bg-light" : "bg-primary text-white";
-        const messageHtml = `
-            <div class="d-flex ${messageClass} mb-2">
-                <div class="message ${bgClass} p-2 rounded">${message.content}</div>
-            </div>
-        `;
-        $("#chat-messages").append(messageHtml);
-        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+        const currentChatUser = $(".chat-window h5").text();  // Aktif sohbet edilen kullanıcı
+        console.log("currentChatUser:", currentChatUser);
+
+        const currentUserName = $("#currentUserName").val();  // Giriş yapmış kullanıcının adı
+        console.log("currentUserName:", currentUserName);
+        console.log("senderName:", senderName);
+
+        const isCurrentChatUser = senderName === currentChatUser;  // Mesaj gönderen aktif sohbet edilen kullanıcı mı?
+        const isSenderCurrentUser = senderName === currentUserName;  // Mesajı gönderen şu anki kullanıcı mı?
+
+        if (isCurrentChatUser || isSenderCurrentUser) {
+            // Mesaj aktif sohbet edilen kullanıcıya ya da gönderen kişiye aitse, mesajı pencereye ekle
+            const messageClass = isSenderCurrentUser ? "justify-content-end" : "justify-content-start";
+            const bgClass = isSenderCurrentUser ? "bg-primary text-white" : "bg-light";
+
+            const messageHtml = `
+        <div class="d-flex ${messageClass} mb-2">
+            <div class="message ${bgClass} p-2 rounded">${message.content}</div>
+        </div>
+    `;
+            $("#chat-messages").append(messageHtml);
+            $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+        } else {
+            // Mesaj aktif olmayan kullanıcıdan geldiyse, kullanıcı listesinde bildirim göster
+            updateUnreadMessageCount(senderName);
+        }
+    });
+
+
+
+    function updateUnreadMessageCount(senderName) {
+        const userItem = $(`.list-group-item:contains(${senderName})`);
+        let badge = userItem.find('.message-count');
+
+        if (badge.length === 0) {
+            // Eğer daha önce okunmamış mesaj sayısı eklenmemişse, yeni bir yuvarlak ekle
+            badge = $('<span class="badge bg-success rounded-circle message-count">1</span>');
+            userItem.append(badge);
+        } else {
+            // Okunmamış mesaj sayısını artır
+            const count = parseInt(badge.text());
+            badge.text(count + 1);
+        }
+    }
+
+    $(document).on("click", "#_clients .list-group-item", function () {
+        const userItem = $(this);
+        console.log("UserItem clicked:", userItem);  // Tıklanan öğeyi kontrol et
+        const badge = userItem.find('.message-count');
+        if (badge.length) {
+            badge.remove();  // Yeşil yuvarlağı kaldır
+        } else {
+            console.log("Badge not found");  // Eğer `badge` bulunamazsa, bu satır tetiklenir
+        }
     });
 
     connection.on("LoadChatHistory", (messages) => {
@@ -200,7 +257,4 @@
 
         $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
     });
-
-
-
 });
