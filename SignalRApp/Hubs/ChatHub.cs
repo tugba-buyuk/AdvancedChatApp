@@ -115,24 +115,29 @@ namespace SignalRApp.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            var userId = Context.UserIdentifier;
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _userManager.GetUserAsync(Context.User);
             if (user != null)
             {
                 user.ConnectionId = Context.ConnectionId;
-                await _context.SaveChangesAsync();
-
                 // Kullanıcı çevrimiçi olduğunda bekleyen mesajları gönder
                 var pendingMessages = await _context.PendingMessages
-                    .Where(pm => pm.ReceiverId == userId)
+                    .Where(pm => pm.ReceiverId == user.Id)
                     .ToListAsync();
 
-                foreach (var pendingMessage in pendingMessages)
+                if (pendingMessages.Any())
                 {
-                    await Clients.Caller.SendAsync("ReceiveMessage", pendingMessage);
-                    _context.PendingMessages.Remove(pendingMessage);
+                    // `SenderId` ye göre yeşil yuvarlakla unread count güncelle
+                    foreach (var pendingMessage in pendingMessages)
+                    {
+                        var sender = await _context.Users.FindAsync(pendingMessage.SenderId);
+                        if (sender != null)
+                        {
+                            await Clients.Caller.SendAsync("UpdateUnreadMessageCount", sender.UserName);
+                        }
+                        _context.PendingMessages.Remove(pendingMessage);
+                    }
                 }
-
+               
                 await _context.SaveChangesAsync();
             }
 

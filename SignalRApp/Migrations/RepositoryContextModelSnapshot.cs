@@ -235,6 +235,9 @@ namespace SignalRApp.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsOnline")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastLogin")
                         .HasColumnType("datetime2");
 
@@ -344,19 +347,19 @@ namespace SignalRApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b06a0de6-9ede-47c9-90d8-4cb9b0405a45",
+                            Id = "71188503-db87-4b43-9782-266f9a42bb2c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "66bc6f5a-812f-46de-886e-06a03d4a7281",
+                            Id = "25b65578-aef6-4a22-b95d-5cc6a40b56c1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a5d79bcf-31e6-4a62-8963-a762cd804073",
+                            Id = "2a5b8357-2e5f-424d-9594-6b19e771f1d9",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });

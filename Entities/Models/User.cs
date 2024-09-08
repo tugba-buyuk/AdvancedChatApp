@@ -8,6 +8,7 @@ namespace Entities.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? ConnectionId { get; set; }
         public string ProfileImage {  get; set; } = string.Empty;
+        public bool IsOnline { get; set; }
 
         public ICollection<Message> SentMessages { get; set; } // Gönderilen mesajlar
         public ICollection<PrivateMessage> SentPrivateMessages { get; set; } // Gönderilen özel mesajlar

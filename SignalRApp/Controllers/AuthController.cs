@@ -2,6 +2,7 @@ using Entities.Dtos;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
 using SignalRApp.Models;
 using System.Diagnostics;
@@ -83,6 +84,8 @@ namespace SignalRApp.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Wrong password.");
             }
+            user.IsOnline = true;
+            await _userManager.UpdateAsync(user);
             return RedirectToAction("Index", "Home", new { userName = user.UserName });
         }
 
@@ -93,6 +96,7 @@ namespace SignalRApp.Controllers
             await _signInManager.SignOutAsync();
             logoutUser.ConnectionId =null;
             logoutUser.LastLogin = DateTime.Now;
+            logoutUser.IsOnline = false;
             await _userManager.UpdateAsync(logoutUser);
             return Redirect("/");
         }

@@ -11,6 +11,11 @@
 
     let activeUser = null;
 
+    connection.on("UpdateUnreadMessageCount", (senderName) => {
+        console.log("connection.on UpdateUnreadMessageCount'a geldi");
+        updateUnreadMessageCount(senderName);
+    });
+
     connection.start().then(() => {
         console.log("Connected to the SignalR hub.");
     }).catch(err => console.log(`Error while starting connection: ${err}`));
@@ -52,7 +57,15 @@
             let lastSeenText = formatLastSeen(item.lastLogin);
             user.find("small.text-muted").text(lastSeenText);
             $("#_clients").append(user);
+
+            if (unreadMessageCounts[item.userName]) {
+                let badge = $('<span class="badge bg-success rounded-circle message-count"></span>');
+                badge.text(unreadMessageCounts[item.userName]);  // Doğru unread sayısını ekle
+                user.append(badge);
+                console.log(`Unread count for ${item.userName}: ${unreadMessageCounts[item.userName]}`);
+            }
         });
+
     });
 
     $(document).on("click", ".users", function () {
@@ -154,6 +167,8 @@
         $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
     });
 
+   
+
     connection.on("ReceiveMessage", (message, senderName) => {
         const currentChatUser = $(".chat-window h5").text();  // Aktif sohbet edilen kullanıcı
         console.log("currentChatUser:", currentChatUser);
@@ -173,8 +188,7 @@
             const messageHtml = `
         <div class="d-flex ${messageClass} mb-2">
             <div class="message ${bgClass} p-2 rounded">${message.content}</div>
-        </div>
-    `;
+        </div>`;
             $("#chat-messages").append(messageHtml);
             $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
         } else {
@@ -183,22 +197,37 @@
         }
     });
 
-
+    let unreadMessageCounts = {};
 
     function updateUnreadMessageCount(senderName) {
+        console.log("updateUnreadMessageCount fonksiyonuna geldi. SenderName: ", senderName);
+
+        // Unread mesaj sayısını güncelle
+        if (unreadMessageCounts[senderName]) {
+            unreadMessageCounts[senderName] += 1;
+        } else {
+            unreadMessageCounts[senderName] = 1;
+        }
+
+        console.log("Güncellenmiş unreadMessageCounts: ", unreadMessageCounts);
+
+        // Kullanıcı listesindeki elemanı bul ve badge'i güncelle
         const userItem = $(`.list-group-item:contains(${senderName})`);
         let badge = userItem.find('.message-count');
 
         if (badge.length === 0) {
-            // Eğer daha önce okunmamış mesaj sayısı eklenmemişse, yeni bir yuvarlak ekle
-            badge = $('<span class="badge bg-success rounded-circle message-count">1</span>');
+            // Eğer daha önce unread badge yoksa yeni bir yuvarlak ekle
+            badge = $('<span class="badge bg-success rounded-circle message-count"></span>');
+            badge.text(unreadMessageCounts[senderName]);
             userItem.append(badge);
+            console.log("Yeni yuvarlak eklendi, unread count: ", unreadMessageCounts[senderName]);
         } else {
-            // Okunmamış mesaj sayısını artır
-            const count = parseInt(badge.text());
-            badge.text(count + 1);
+            // Eğer badge varsa, sayıyı güncelle
+            badge.text(unreadMessageCounts[senderName]);
+            console.log("Var olan yuvarlak güncellendi, unread count: ", unreadMessageCounts[senderName]);
         }
     }
+
 
     $(document).on("click", "#_clients .list-group-item", function () {
         const userItem = $(this);
