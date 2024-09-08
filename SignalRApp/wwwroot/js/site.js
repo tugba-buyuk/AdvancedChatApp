@@ -79,14 +79,6 @@
     $("#messageArea").on("focus", function () {
         activeUser = $(".users.active");
     });
-
-    $(document).ready(function () {
-        $("#messageArea").emojioneArea({
-            pickerPosition: "bottom",
-            tonesStyle: "background",
-            emojisPath: "https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/"
-        });
-    });
     // Mesaj gönderme
     $("#sendBtn").on("click", async () => {
         const fileInput = document.getElementById("fileInput");
@@ -109,18 +101,25 @@
             reader.readAsArrayBuffer(file);
         } else {
             if (activeUser.length > 0) {
-                const messageContent = $("#messageArea").val();
-                try {
-                    await connection.invoke("SendMessage", messageContent, receiverName);
-                    $("#messageArea").val(""); // Clear the message area
-                } catch (err) {
-                    console.error(`Error while sending message: ${err}`);
+                // TinyMCE'den mesajı almak için tinymce.get() kullanılır
+                const messageContent = tinymce.get("messageArea").getContent();
+
+                if (messageContent.trim() !== "") {  // Boş mesaj kontrolü
+                    try {
+                        await connection.invoke("SendMessage", messageContent, receiverName);
+                        tinymce.get("messageArea").setContent(""); // Mesaj alanını temizle
+                    } catch (err) {
+                        console.error(`Error while sending message: ${err}`);
+                    }
+                } else {
+                    alert("Lütfen bir mesaj yazın.");
                 }
             } else {
                 alert("Lütfen bir kullanıcı seçin.");
             }
         }
     });
+
 
     connection.on("ReceiveFile", (fileName, fileUrl, senderName) => {
         console.log("ReceiveFile SenderName: ", senderName);
@@ -257,4 +256,12 @@
 
         $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
     });
+});
+
+tinymce.init({
+    selector: "#messageArea",
+    plugins: "emoticons",
+    toolbar: "emoticons",
+    toolbar_location: "bottom",
+    menubar: false
 });
